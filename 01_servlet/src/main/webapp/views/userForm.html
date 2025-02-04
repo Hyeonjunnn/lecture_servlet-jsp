@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="static/favicon.png" rel="icon" type="image/x-icon">
+    <title>개인 정보 입력</title>
+</head>
+<body>
+    <h2>개인 정보 입력</h2>
+
+    <form>
+        <label for="name">이름 : </label>
+        <input type="text" id="name" name="userName">
+
+        <br/>
+
+        <label for="age">나이 : </label>
+        <input type="text" id="age" name="userAge">
+
+        <br/>
+
+        <label><input type="radio" name="gender" checked>남자</label>
+        <label><input type="radio" name="gender">여자</label>
+
+        <br/>
+
+        <label>좋아하는 음식 : </label>
+        <label><input type="checkbox" name="food" value="한식">한식</label>
+        <label><input type="checkbox" name="food" value="중식">중식</label>
+        <label><input type="checkbox" name="food" value="일식">일식</label>
+        <label><input type="checkbox" name="food" value="양식">양식</label>
+        <label><input type="checkbox" name="food" value="분식">분식</label>
+
+        <br/>
+
+        <input type="submit" value="전송">
+        <input type="reset" value="취소">
+    </form>
+</body>
+</html>
