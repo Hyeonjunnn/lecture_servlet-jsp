@@ -1,5 +1,8 @@
 package com.beyond.mvc.user.controller;
 
+import com.beyond.mvc.user.model.service.UserService;
+import com.beyond.mvc.user.model.service.UserServiceImpl;
+import com.beyond.mvc.user.model.vo.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * <p>
@@ -25,12 +29,22 @@ import java.io.IOException;
  */
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+
+    private final UserService userService;
+
+    public LoginServlet() {
+         userService = new UserServiceImpl();
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         String userPwd = request.getParameter("userPwd");
 
-        System.out.println(userId + ", " + userPwd);
+        User loginUser = userService.login(userId, userPwd);
+
+        System.out.println(loginUser);
+
         response.sendRedirect(request.getContextPath() + "/");
     }
 

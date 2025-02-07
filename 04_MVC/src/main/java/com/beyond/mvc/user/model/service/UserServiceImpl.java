@@ -1,12 +1,14 @@
 package com.beyond.mvc.user.model.service;
 
+import com.beyond.mvc.user.model.dao.UserDao;
+import com.beyond.mvc.user.model.dao.UserDaoImpl;
 import com.beyond.mvc.user.model.vo.User;
 
 /**
  * <p>
  *
  * <p>packageName    : com.beyond.mvc.user.model.service
- * <p>fileName       : UserService
+ * <p>fileName       : UserServiceImpl
  * <p>author         : hjsong
  * <p>date           : 2025-02-07
  * <p>description    :
@@ -17,6 +19,20 @@ import com.beyond.mvc.user.model.vo.User;
  * -----------------------------------------------------------
  * 2025-02-07        hjsong             최초 생성
  */
-public interface UserService {
-    User login(String userId, String password);
+public class UserServiceImpl implements UserService{
+
+    private final UserDao userDao;
+    public UserServiceImpl() {
+        userDao = new UserDaoImpl();
+    }
+
+    @Override
+    public User login(String userId, String password){
+        User user = null;
+
+        user = userDao.getUserById(userId);
+
+        return user;
+    }
+
 }

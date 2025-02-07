@@ -1,12 +1,12 @@
-package com.beyond.mvc.user.model.service;
+package com.beyond.mvc.user.model.dao;
 
 import com.beyond.mvc.user.model.vo.User;
 
 /**
  * <p>
  *
- * <p>packageName    : com.beyond.mvc.user.model.service
- * <p>fileName       : UserService
+ * <p>packageName    : com.beyond.mvc.user.model.dao
+ * <p>fileName       : UserDao
  * <p>author         : hjsong
  * <p>date           : 2025-02-07
  * <p>description    :
@@ -17,6 +17,6 @@ import com.beyond.mvc.user.model.vo.User;
  * -----------------------------------------------------------
  * 2025-02-07        hjsong             최초 생성
  */
-public interface UserService {
-    User login(String userId, String password);
+public interface UserDao {
+    User getUserById(String userId);
 }
