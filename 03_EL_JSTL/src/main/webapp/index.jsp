@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +17,11 @@
 
 	<h4>1) EL 내장 객체</h4>
 
-	<a href="<%= request.getContextPath() %>/el.do">View Details</a>
+	<a href="${contextPath}/el.do">View Details</a>
 
 	<h4>2) EL 연산자</h4>
 
-	<a href="<%= request.getContextPath() %>/views/el/elOperators.jsp">View Details</a>
+	<a href="${contextPath}/views/el/elOperators.jsp">View Details</a>
 
 	<h3>1. JSP 액션 태그</h3>
 	<p>
@@ -31,8 +34,8 @@
 		JSP에서 기본으로 제공하는 액션 태그로 별도의 라이브러리 설치 없이 바로 사용할 수 있다.
 	</p>
 	
-	<a href="<%= request.getContextPath() %>/views/actiontag/include.jsp">View Details</a>
-	<a href="<%= request.getContextPath() %>/views/actiontag/forward.jsp">View Details</a>
+	<a href="${contextPath}/views/actiontag/include.jsp">View Details</a>
+	<a href="${contextPath}/views/actiontag/forward.jsp">View Details</a>
 
 	<h4>2) JSTL(JSP Standard Tag Library)</h4>
 	<p>
@@ -44,6 +47,20 @@
 		변수와 URL, 조건문, 반복문 등의 로직과 관련된 액션 태그를 제공한다.
 	</p>
 
-	<a href="<%= request.getContextPath() %>/views/jstl/core.jsp">View Details</a>
+	<a href="${contextPath}/views/jstl/core.jsp">View Details</a>
+
+	<h5>2-2) JSTL Formatting Library</h5>
+	<p>
+		날짜와 시간, 숫자 데이터의 출력 형식을 지정할 때 사용하는 액션 태그를 제공한다.
+	</p>
+	
+	<a href="${contextPath}/views/jstl/formatting.jsp">View Details</a>
+	
+	<h5>2-3) JSTL Function Library</h5>
+	<p>
+		문자열 처리와 관련된 함수들을 EL 구문에서 사용할 수 있게 제공하는 라이브러리이다.
+	</p>
+	
+	<a href="${contextPath}/views/jstl/functions.jsp">View Details</a>
 </body>
 </html>

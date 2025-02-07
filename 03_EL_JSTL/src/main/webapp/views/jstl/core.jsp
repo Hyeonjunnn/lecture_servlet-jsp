@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.beyond.eljstl.Student" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Playdata
   Date: 2025-02-06
@@ -116,5 +118,64 @@
 	<c:forEach var="color" items="${colors}">
 		<span style="color: ${color}; font-size: 20px;" >Hello World</span><br/>
 	</c:forEach>
+
+	<h5>1-3) 학생 목록 조회</h5>
+	<%
+		List<Student> students = new ArrayList<>();
+        
+        students.add(new Student("홍길동", 24, 80, 80));
+        students.add(new Student("이몽룡", 22, 85, 75));
+        students.add(new Student("성춘향", 22, 90, 90));
+        students.add(new Student("심청이", 20, 85, 85));
+        
+        request.setAttribute("students", students);
+	%>
+	
+	<table border="1">
+		<tr>
+			<th>인덱스</th>
+			<th>순번</th>
+			<th>이름</th>
+			<th>나이</th>
+			<th>수학 점수</th>
+			<th>영어 점수</th>
+		</tr>
+		<c:forEach var="student" items="${students}" varStatus="status">
+			<c:if test="${not status.first}">
+				<tr>
+					<td>${status.index}</td>
+					<td>${status.count}</td>
+					<td>${student.name}</td>
+					<td>${student.age}</td>
+					<td>${student.math}</td>
+					<td>${student.english}</td>
+				</tr>
+			</c:if>
+		</c:forEach>
+	</table>
+
+	<h4>1) c:forTokens 액션 태그</h4>
+	<p>
+		문자열에 포함된 구분자를 통해 토큰을 분리해 반복을 수행하는 액션 태그이다.
+	</p>
+	<ol>
+		<c:forTokens var="device" items="컴퓨터,노트북 에어컨/TV,냉장고.세탁기" delims=",/. ">
+			<li>${device}</li>
+		</c:forTokens>
+	</ol>
+
+	<h3>5. c:url 액션 태그</h3>
+	<p>
+		URL을 생성하고 쿼리스트링을 미리 설정하는 액션 태그이다.
+	</p>
+
+	<c:url var="url" value="/views/el/elParam.jsp">
+		<c:param name="pName" value="아이폰"/>
+		<c:param name="pCount" value="15"/>
+		<c:param name="pOption" value="블랙티타늄"/>
+		<c:param name="pOption" value="256GB"/>
+	</c:url>
+	
+	<a href="${url}">View Details</a>
 </body>
 </html>
