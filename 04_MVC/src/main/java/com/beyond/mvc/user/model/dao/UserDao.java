@@ -2,6 +2,8 @@ package com.beyond.mvc.user.model.dao;
 
 import com.beyond.mvc.user.model.vo.User;
 
+import java.sql.Connection;
+
 /**
  * <p>
  *
@@ -18,5 +20,7 @@ import com.beyond.mvc.user.model.vo.User;
  * 2025-02-07        hjsong             최초 생성
  */
 public interface UserDao {
-    User getUserById(String userId);
+    User getUserById(Connection connection, String userId);
+
+    int insertUser(Connection connection, User user);
 }

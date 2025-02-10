@@ -2,6 +2,8 @@ package com.beyond.mvc.user.model.service;
 
 import com.beyond.mvc.user.model.vo.User;
 
+import java.sql.Connection;
+
 /**
  * <p>
  *
@@ -19,4 +21,6 @@ import com.beyond.mvc.user.model.vo.User;
  */
 public interface UserService {
     User login(String userId, String password);
+
+    int save(User user);
 }

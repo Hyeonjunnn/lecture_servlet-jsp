@@ -1,13 +1,13 @@
 package com.beyond.mvc.user.model.dao;
 
+import static com.beyond.mvc.common.jdbc.JDBCTemplate.close;
+
 import com.beyond.mvc.user.model.vo.User;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * <p>
@@ -26,9 +26,8 @@ import java.sql.Statement;
  */
 public class UserDaoImpl implements UserDao{
     @Override
-    public User getUserById(String userId){
+    public User getUserById(Connection connection, String userId){
         User user = null;
-        Connection connection = null;
         // Statement statement = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -36,13 +35,6 @@ public class UserDaoImpl implements UserDao{
         String query = "SELECT * FROM user WHERE id = ? AND status='Y'";
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            connection = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/web",
-                    "beyond",
-                    "0000"
-            );
             // statement = connection.createStatement();
             // resultSet = statement.executeQuery(query);
 
@@ -67,21 +59,61 @@ public class UserDaoImpl implements UserDao{
                 user.setModifyDate(resultSet.getDate("modify_date"));
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            // JDBCTemplate.close(resultSet);
+            close(resultSet);
+            // JDBCTemplate.close(statement);
+            close(statement);
         }
 
         return user;
+    }
+
+    @Override
+    public int insertUser(Connection connection, User user){
+        int result = 1;
+
+        PreparedStatement statement = null;
+
+        String query = "INSERT INTO user(id, password, name, phone, email, address, hobby) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // String query = "INSERT INTO user" +
+        //         "VALUES (NULL, ?, ?, DEFAULT, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
+
+        try {
+
+            // connection.setAutoCommit(false);
+
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, user.getId());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getName());
+            statement.setString(4, user.getPhone());
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getAddress());
+            statement.setString(7, user.getHobby());
+
+            result = statement.executeUpdate();
+
+            // if (result > 0) {
+            //     connection.commit();
+            // } else {
+            //     connection.rollback();
+            // }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(statement);
+
+        }
+
+        return result;
     }
 
 }
