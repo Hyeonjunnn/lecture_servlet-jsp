@@ -20,7 +20,9 @@ import java.sql.Connection;
  * 2025-02-07        hjsong             최초 생성
  */
 public interface UserService {
-    User login(String userId, String password);
+    User login(String userId, String userPwd);
 
     int save(User user);
+
+    int delete(int no);
 }

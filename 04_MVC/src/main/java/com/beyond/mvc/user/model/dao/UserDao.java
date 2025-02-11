@@ -23,4 +23,10 @@ public interface UserDao {
     User getUserById(Connection connection, String userId);
 
     int insertUser(Connection connection, User user);
+
+    int updateUser(Connection connection, User user);
+
+    int deleteUser(Connection connection, int no);
+
+    int updateUserStatus(Connection connection, int no, String status);
 }

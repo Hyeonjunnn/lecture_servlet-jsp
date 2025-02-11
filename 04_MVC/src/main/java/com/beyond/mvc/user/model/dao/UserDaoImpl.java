@@ -116,4 +116,78 @@ public class UserDaoImpl implements UserDao{
         return result;
     }
 
+    @Override
+    public int updateUser(Connection connection, User user){
+        int result = 0;
+        PreparedStatement statement = null;
+        String query =
+                "UPDATE user SET name =?,phone=?,email=?,address=?,hobby=?,modify_date=CURDATE() WHERE no=?";
+
+        try {
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getPhone());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getAddress());
+            statement.setString(5, user.getHobby());
+            statement.setInt(6, user.getNo());
+
+            result = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(statement);
+        }
+
+        return result;
+    }
+
+    @Override
+    public int deleteUser(Connection connection, int no){
+        int result = 0;
+        PreparedStatement statement = null;
+        String query = "DELETE FROM user WHERE no = ?";
+
+        try {
+            statement = connection.prepareStatement(query);
+
+            statement.setInt(1, no);
+
+            result = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(statement);
+        }
+
+        return result;
+    }
+
+    @Override
+    public int updateUserStatus(Connection connection, int no, String status){
+        int result = 0;
+        PreparedStatement statement = null;
+        String query = "UPDATE user SET status = ? WHERE no = ?";
+
+        try {
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, status);
+            statement.setInt(2, no);
+
+            result =  statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(statement);
+        }
+
+        return result;
+    }
+
 }
